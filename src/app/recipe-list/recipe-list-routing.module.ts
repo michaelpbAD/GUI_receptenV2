@@ -10,6 +10,7 @@ const RecipeListRoutes = [
   imports: [
     RouterModule.forChild(RecipeListRoutes)
   ],
-  declarations: [RouterModule]
+  exports: [RouterModule],
+  declarations: []
 })
 export class RecipeListRoutingModule { }

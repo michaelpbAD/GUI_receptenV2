@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+#backend link data
+\src\app\backend-link-data.ts
+
 # compiled output
 /dist
 /dist-server

@@ -12,6 +12,7 @@ const authRoutes = [
   imports: [
     RouterModule.forChild(authRoutes)
   ],
-  declarations: [RouterModule]
+  exports: [RouterModule],
+  declarations: []
 })
 export class AuthRoutingModule { }
