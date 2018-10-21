@@ -19,5 +19,8 @@ export class HeaderComponent implements OnInit {
   get auth() {
     return this.authService;
   }
+  onNewRecipe() {
+    this.router.navigateByUrl('/recipeEditor');
+  }
 
 }

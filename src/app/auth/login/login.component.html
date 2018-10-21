@@ -1,3 +1,59 @@
-<p>
-  login works!
-</p>
+<div class="row justify-content-md-center">
+  <div class="col-md-6 col-md-offset-3">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <div class="form-group">
+        <label for="email">Email*</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+        />
+      </div>
+      <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">
+        <p class="error-message"
+           *ngIf="loginForm.get('email').errors['required']"
+        >email address is required.</p>
+        <p class="error-message"
+           *ngIf="loginForm.get('email').errors['invalidFormat'] && !loginForm.get('email').errors['required']"
+        >Enter a correct email address.</p>
+      </span>
+
+      <div class="form-group">
+        <label for="password">Password*</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+        />
+      </div>
+      <p class="error-message"
+         *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
+      >password is required.</p>
+
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!loginForm.valid"
+      >Login</button>
+      <p class="error-message" *ngIf="invalidLogin"
+      >invalid email or password.</p>
+    </form>
+
+  </div>
+
+
+</div>
+<div class="row justify-content-md-center">
+  <div class="col-md-1">
+    <a  routerLink="/signup">
+      <button
+        class="btn btn-primary"
+        type="button"
+      >Signup</button>
+    </a>
+  </div>
+</div>
+

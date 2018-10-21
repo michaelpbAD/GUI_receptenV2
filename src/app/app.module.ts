@@ -11,20 +11,27 @@ import {AuthModule} from './auth/auth.module';
 import {RecipeModule} from './recipe/recipe.module';
 import {RecipeListModule} from './recipe-list/recipe-list.module';
 import {AuthGuard} from './auth.guard';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
+import {RecipeEditorModule} from './recipe-editor/recipe-editor.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    RecipeEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutesModule,
     AuthModule,
     RecipeModule,
-    RecipeListModule
+    RecipeListModule,
+    RecipeEditorModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,

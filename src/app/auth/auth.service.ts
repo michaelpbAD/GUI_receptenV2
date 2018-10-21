@@ -14,9 +14,15 @@ export class AuthService {
   }
 
   signup(email: string, passwd: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, passwd)
+    return firebase.auth().createUserWithEmailAndPassword(email, passwd)
+      .then( () => {
+        return true;
+      })
       .catch(
-        error => console.log(error)
+        error => {
+          console.log(error);
+          return false;
+        }
       );
   }
 
