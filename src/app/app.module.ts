@@ -8,12 +8,8 @@ import {AuthService} from './auth/auth.service';
 import {AuthInterceptor} from './auth.interceptor';
 import {AppRoutesModule} from './app-routes.module';
 import {AuthModule} from './auth/auth.module';
-import {RecipeModule} from './recipe/recipe.module';
-import {RecipeListModule} from './recipe-list/recipe-list.module';
 import {AuthGuard} from './auth.guard';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RecipeEditorComponent } from './recipe-editor/recipe-editor.component';
-import {RecipeEditorModule} from './recipe-editor/recipe-editor.module';
+import {RecipesModule} from './recipes/recipes.module';
 
 
 
@@ -21,17 +17,12 @@ import {RecipeEditorModule} from './recipe-editor/recipe-editor.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipeEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutesModule,
     AuthModule,
-    RecipeModule,
-    RecipeListModule,
-    RecipeEditorModule,
-    FormsModule,
-    ReactiveFormsModule
+    RecipesModule
   ],
   providers: [
     AuthService,
