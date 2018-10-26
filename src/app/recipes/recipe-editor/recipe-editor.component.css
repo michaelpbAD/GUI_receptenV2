@@ -25,6 +25,9 @@
 .action-inputs{
   margin: 10px 0px 5px 0px;
 }
+.action-inputs .input-group{
+  margin: 0px 0px 2px 0px;
+}
 .ingredient-inputs{
   margin: 0px 0px 5px 0px;
 }

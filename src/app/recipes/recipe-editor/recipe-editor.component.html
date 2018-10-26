@@ -21,17 +21,15 @@
             <div *ngFor="let ingredient of getIngredients(action); let j = index"
                  [formGroupName]="j"
                  class="input-group ingredient-inputs">
-              <input class="form-control" type="number" placeholder="quantity" formControlName="quantity">
-              <select class=" form-control" formControlName="unit" >
+              <input class="form-control col-3" type="number" placeholder="quantity" formControlName="quantity">
+              <select class=" form-control col-2" formControlName="unit" >
                 <option></option>
                 <option>g</option>
                 <option>ml</option>
+                <option>tsp</option>
+                <option>tbsp</option>
               </select>
               <input class="form-control" type="text" placeholder="name" formControlName="name">
-
-              <div *ngIf="editForm.errors" class="alert alert-danger">
-                {{ editForm.errors }}
-              </div>
               <div class="input-group-append">
                 <button type="button" class="btn btn-secondary"  (click)="delIngredients(i,j)">del</button>
               </div>
@@ -41,7 +39,7 @@
           <div class="action-inputs">
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text">action name</span>
+                <span class="input-group-text">Action name</span>
               </div>
               <input class="form-control" type="text" placeholder="action name" formControlName="name">
             </div>
