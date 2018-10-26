@@ -8,7 +8,8 @@ const RecipesRoutes = [
   {path: 'recipes', component: RecipeListComponent, children: [
       {path: ':id', component: RecipeComponent},
       {path: ':id/edit', component: RecipeEditorComponent},
-    ]}
+    ]},
+  {path: 'recipeEditor', component: RecipeEditorComponent}
 ];
 
 @NgModule({

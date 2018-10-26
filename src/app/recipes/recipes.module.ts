@@ -14,7 +14,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    RecipesRoutingModule
+    RecipesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     RecipeComponent,
@@ -26,10 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     IngredientEditerComponent,
 
     RecipeListComponent,
-    RecipeCardComponent,
-
-    FormsModule,
-    ReactiveFormsModule
+    RecipeCardComponent
   ]
 })
 export class RecipesModule { }

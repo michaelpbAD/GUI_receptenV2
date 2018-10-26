@@ -1,3 +1,70 @@
-<p>
-  recipe-editor works!
-</p>
+<div class="row justify-content-md-center">
+  <form [formGroup]="editForm" (ngSubmit)="onSave(editForm)">
+    <div class="recipe-inputs">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Recipe name</span>
+        </div>
+        <input class="form-control" type="text" placeholder="Recipe name" formControlName="name">
+      </div>
+      <div class="input-group">
+        <textarea class="form-control" placeholder="Recipe comment" formControlName="comment"></textarea>
+      </div>
+    </div>
+
+    <div formArrayName="actions" class="actions-container">
+      <div class="action-container" *ngFor="let action of getAction(editForm); let i = index">
+        <div class="ui raised actions" [formGroupName]="i">
+
+          <div class="ingredients-container" formArrayName="ingredients">
+            <!--<h4>Step {{i+1}}</h4>-->
+            <div *ngFor="let ingredient of getIngredients(action); let j = index"
+                 [formGroupName]="j"
+                 class="input-group ingredient-inputs">
+              <input class="form-control" type="number" placeholder="quantity" formControlName="quantity">
+              <select class=" form-control" formControlName="unit" >
+                <option></option>
+                <option>g</option>
+                <option>ml</option>
+              </select>
+              <input class="form-control" type="text" placeholder="name" formControlName="name">
+
+              <div *ngIf="editForm.errors" class="alert alert-danger">
+                {{ editForm.errors }}
+              </div>
+              <div class="input-group-append">
+                <button type="button" class="btn btn-secondary"  (click)="delIngredients(i,j)">del</button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-block" (click)="addIngredients(i)">Add ingredient</button>
+          </div>
+          <div class="action-inputs">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">action name</span>
+              </div>
+              <input class="form-control" type="text" placeholder="action name" formControlName="name">
+            </div>
+            <div class="input-group">
+              <textarea class="form-control" placeholder="action comment" formControlName="comment"></textarea>
+            </div>
+          </div>
+
+
+        </div>
+        <button class="btn btn-secondary btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">Remove Action</button>
+      </div>
+      <button (click)="addAction()" class="btn btn-secondary btn-block">Add actions </button>
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      type="submit"
+    >SAVE</button>
+
+  </form>
+</div>
+
+
+
