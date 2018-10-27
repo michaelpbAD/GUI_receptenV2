@@ -5,11 +5,11 @@ import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
 import {RecipeListComponent} from './recipe-list/recipe-list.component';
 
 const RecipesRoutes = [
-  {path: 'recipes', component: RecipeListComponent, children: [
+  {path: 'recipe', component: RecipeListComponent, children: [
       {path: ':id', component: RecipeComponent},
       {path: ':id/edit', component: RecipeEditorComponent},
     ]},
-  {path: 'recipeEditor', component: RecipeEditorComponent}
+  {path: 'recipes', component: RecipeListComponent}
 ];
 
 @NgModule({

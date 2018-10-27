@@ -7,10 +7,12 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class BackendService {
+  data: Recipe[];
+  editData: Recipe;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getContacts() {
+  getRecipes() {
     const url = 'https://httpclient-examples-8d1710.firebaseio.com/contactsL5.json';
     return this.http.get<Recipe[]>(url)
       .pipe(map(
@@ -20,15 +22,15 @@ export class BackendService {
       ))
       .pipe((catchError(
         (error: HttpErrorResponse) => {
-          console.log('foutboodschap:', error);
-          return Observable.throw('Oeps, bad things happen!');
+          console.log('ERROR: ', error);
+          return Observable.throw('ERROR: getContact');
         }
       )));
   }
 
-  storeContacts(contacts: Recipe[]) {
+  storeRecipes(recipes: Recipe[]) {
     const url = 'https://httpclient-examples-8d1710.firebaseio.com/contactsL5.json';
-    return this.http.put(url, contacts);
+    return this.http.put(url, recipes);
   }
 
 

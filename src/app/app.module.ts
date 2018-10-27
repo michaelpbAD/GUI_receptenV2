@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import {BackendService} from './backend.service';
@@ -16,13 +16,14 @@ import {RecipesModule} from './recipes/recipes.module';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutesModule,
     AuthModule,
-    RecipesModule
+    RecipesModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
