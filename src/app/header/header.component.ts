@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     return this.authService;
   }
   onNewRecipe() {
-    this.router.navigate(['recipes', -1, 'edit' ]);
+    this.router.navigate(['recipe', -1, 'edit' ]);
   }
 
 }

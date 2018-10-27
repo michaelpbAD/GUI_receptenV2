@@ -10,12 +10,6 @@ import {RecipeCardComponent} from './recipe-list/recipe-card/recipe-card.compone
 import {RecipeListComponent} from './recipe-list/recipe-list.component';
 import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthService} from '../auth/auth.service';
-import {AuthInterceptor} from '../auth.interceptor';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {BackendService} from '../backend.service';
-import {AuthGuard} from '../auth.guard';
-import { RecipePComponent } from './recipe-p/recipe-p.component';
 import { RecipesComponent } from './recipes.component';
 
 @NgModule({
@@ -36,7 +30,6 @@ import { RecipesComponent } from './recipes.component';
 
     RecipeListComponent,
     RecipeCardComponent,
-    RecipePComponent,
     RecipesComponent
   ],
   providers: [
