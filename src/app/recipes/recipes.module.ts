@@ -16,6 +16,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BackendService} from '../backend.service';
 import {AuthGuard} from '../auth.guard';
 import { RecipePComponent } from './recipe-p/recipe-p.component';
+import { RecipesComponent } from './recipes.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { RecipePComponent } from './recipe-p/recipe-p.component';
 
     RecipeListComponent,
     RecipeCardComponent,
-    RecipePComponent
+    RecipePComponent,
+    RecipesComponent
   ],
   providers: [
   ],
