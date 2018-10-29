@@ -19,7 +19,10 @@ export class AppComponent implements OnInit {
         console.log(response);
         this.backendService.data = response;
       },
-      (error) => console.log(error),
+      (error) => {
+        console.log(error);
+        this.backendService.data = [];
+      },
       () => console.log('data collects')
     );
   }

@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
           this.invalidLogin = true;
         } else {
           this.invalidLogin = false;
-          this.route.navigateByUrl('/recipeList');
+          this.route.navigateByUrl('/recipe/list');
         }
       });
   }

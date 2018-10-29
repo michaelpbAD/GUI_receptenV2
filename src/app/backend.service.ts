@@ -4,6 +4,7 @@ import {AuthService} from './auth/auth.service';
 import {Recipe} from './recipeClasses/recipe';
 import {map, catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
+import {BackendLinkData} from './backend-link-data';
 
 @Injectable()
 export class BackendService {
@@ -13,7 +14,7 @@ export class BackendService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getRecipes() {
-    const url = 'https://httpclient-examples-8d1710.firebaseio.com/contactsL5.json';
+    const url = BackendLinkData.url;
     return this.http.get<Recipe[]>(url)
       .pipe(map(
         (response) => {
@@ -29,7 +30,7 @@ export class BackendService {
   }
 
   storeRecipes(recipes: Recipe[]) {
-    const url = 'https://httpclient-examples-8d1710.firebaseio.com/contactsL5.json';
+    const url = BackendLinkData.url;
     return this.http.put(url, recipes);
   }
 

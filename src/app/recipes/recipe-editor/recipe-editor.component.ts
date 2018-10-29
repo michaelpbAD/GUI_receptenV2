@@ -3,6 +3,9 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
 import {BackendService} from '../../backend.service';
 import {Recipe} from '../../recipeClasses/recipe';
+import {Ingredient} from '../../recipeClasses/ingredient';
+import {Action} from '../../recipeClasses/action';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-recipe-editor',
@@ -22,19 +25,18 @@ export class RecipeEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.editForm = new FormGroup({
+      'name': new FormControl(null, [Validators.required, this.valid.bind(this)]),
+      'comment': new FormControl(null, [Validators.required, this.valid.bind(this)]),
+      'actions': new FormArray([this.initAction()])
+    });
+
     this.route.paramMap.subscribe(
       (params: Params) => {
         this._ID = params.get('id');
         this.setEditData();
       }
     );
-
-    this.editForm = new FormGroup({
-      'id': new FormControl(null, [Validators.required, this.valid.bind(this)]),
-      'name': new FormControl(null, [Validators.required, this.valid.bind(this)]),
-      'comment': new FormControl(null, [Validators.required, this.valid.bind(this)]),
-      'actions': new FormArray([this.initAction()])
-    });
   }
   initAction() {
     return new FormGroup({
@@ -54,7 +56,15 @@ export class RecipeEditorComponent implements OnInit {
     const control = <FormArray>this.editForm.get('actions');
     control.push(this.initAction());
   }
-  addIngredients(i) {
+  addIngredients(i, j) {
+    const control = <FormArray>this.editForm.get(['actions', i, 'ingredients']);
+    control.insert(j, this.initIngredients());
+  }
+  insertAction(i) {
+    const control = <FormArray>this.editForm.get('actions');
+    control.insert(i, this.initAction());
+  }
+  insertIngredients(i) {
     const control = <FormArray>this.editForm.get(['actions', i, 'ingredients']);
     control.push(this.initIngredients());
   }
@@ -80,19 +90,24 @@ export class RecipeEditorComponent implements OnInit {
   }
 
   setEditData() {
-    try {
-      this.backendService.editData = this.backendService.data[this._ID];
-    } catch (e) {
-      this.backendService.editData = new Recipe();
+    console.log('_ID', this._ID);
+    if (this._ID >= 0 && this._ID < this.backendService.data.length) {
+      this.backendService.editData = this.backendService.data[this._ID].deepCopy();
+    } else {
+      const I = new Ingredient('Ingredient base', 'g', 1);
+      const A = new Action('Action base', 'Action comment', [I]);
+      this.backendService.editData = new Recipe('Recipe base', 'Recipe comment', [A]);
     }
+    this.editForm.setValue(this.backendService.editData);
   }
 
   onSave(form) {
     console.log(form);
-    try {
-      this.backendService.data[this._ID] = this.backendService.editData;
+    this.backendService.editData = form.value;
+    if (this._ID >= 0 && this._ID < this.backendService.data.length) {
+      this.backendService.data[this._ID] = this.backendService.editData.deepCopy();
       console.log('SAVED as ', this._ID);
-    } catch (e) {
+    } else {
       this.backendService.data.push(this.backendService.editData);
       console.log('SAVED push');
     }
@@ -101,10 +116,4 @@ export class RecipeEditorComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-
-
-
-
-
-
 }
