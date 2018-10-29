@@ -5,11 +5,13 @@ import {Recipe} from './recipeClasses/recipe';
 import {map, catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {BackendLinkData} from './backend-link-data';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class BackendService {
-  data: Recipe[];
+  data: Recipe[] = [];
   editData: Recipe;
+  dataSubject = new Subject();
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -18,6 +20,7 @@ export class BackendService {
     return this.http.get<Recipe[]>(url)
       .pipe(map(
         (response) => {
+          this.setData(response);
           return response;
         }
       ))
@@ -33,6 +36,13 @@ export class BackendService {
     const url = BackendLinkData.url;
     return this.http.put(url, recipes);
   }
+
+  setData(recipes: Recipe[]) {
+    this.data = recipes;
+    this.dataSubject.next(recipes);
+  }
+
+
 
 
 }

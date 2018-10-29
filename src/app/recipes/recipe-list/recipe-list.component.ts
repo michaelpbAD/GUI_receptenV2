@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {BackendService} from '../../backend.service';
+import {Recipe} from '../../recipeClasses/recipe';
 
 @Component({
   selector: 'app-recipe-list',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-
-  constructor() { }
-
+  data: Recipe[] = [];
+  constructor(private backendService: BackendService) { }
   ngOnInit() {
+   this.backendService.dataSubject.subscribe(
+     (recipes: Recipe[]) => {
+       this.data = recipes;
+     }
+   );
   }
 
 }
