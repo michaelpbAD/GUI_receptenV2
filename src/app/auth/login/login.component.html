@@ -3,7 +3,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
       <div class="form-group">
-        <label for="email">Email*</label>
+        <label for="email">Email:</label>
         <input
           type="email"
           id="email"
@@ -11,17 +11,17 @@
           class="form-control"
         />
       </div>
-      <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">
-        <p class="error-message"
-           *ngIf="loginForm.get('email').errors['required']"
-        >email address is required.</p>
-        <p class="error-message"
-           *ngIf="loginForm.get('email').errors['invalidFormat'] && !loginForm.get('email').errors['required']"
-        >Enter a correct email address.</p>
-      </span>
+      <!--<span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched">-->
+        <!--<p class="alert alert-danger"-->
+           <!--*ngIf="loginForm.get('email').errors['required']"-->
+        <!--&gt;email address is required.</p>-->
+        <!--<p class="alert alert-danger"-->
+           <!--*ngIf="loginForm.get('email').errors['invalidFormat'] && !loginForm.get('email').errors['required']"-->
+        <!--&gt;Enter a correct email address.</p>-->
+      <!--</span>-->
 
       <div class="form-group">
-        <label for="password">Password*</label>
+        <label for="password">Password:</label>
         <input
           type="password"
           id="password"
@@ -29,31 +29,28 @@
           class="form-control"
         />
       </div>
-      <p class="error-message"
-         *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
-      >password is required.</p>
+      <!--<p class="alert alert-danger"-->
+         <!--*ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"-->
+      <!--&gt;password is required.</p>-->
 
       <button
-        class="btn btn-primary"
+        class="btn btn-primary btn-block"
         type="submit"
         [disabled]="!loginForm.valid"
       >Login</button>
-      <p class="error-message" *ngIf="invalidLogin"
-      >invalid email or password.</p>
+      <div class="alert alert-warning" role="alert" *ngIf="invalidLogin">
+        invalid email or password.
+      </div>
+      <button
+        class="btn btn-secondary btn-block"
+        type="button"
+        (click)="onSignup()"
+      >Signup</button>
     </form>
 
   </div>
+</div>
 
 
-</div>
-<div class="row justify-content-md-center">
-  <div class="col-md-1">
-    <a  routerLink="/signup">
-      <button
-        class="btn btn-primary"
-        type="button"
-      >Signup</button>
-    </a>
-  </div>
-</div>
+
 

@@ -12,10 +12,10 @@
         />
       </div>
       <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
-        <p class="error-message"
+        <p class="alert alert-danger"
            *ngIf="signupForm.get('email').errors['required']"
         >email address is required.</p>
-        <p class="error-message"
+        <p class="alert alert-danger"
            *ngIf="signupForm.get('email').errors['invalidFormat'] && !signupForm.get('email').errors['required']"
         >Enter a correct email address.</p>
       </span>
@@ -30,21 +30,21 @@
         />
       </div>
       <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">
-        <p class="error-message"
+        <p class="alert alert-dangere"
            *ngIf="signupForm.get('password').errors['required']"
         >password is required.</p>
-        <p class="error-message"
+        <p class="alert alert-danger"
            *ngIf="signupForm.get('password').errors['invalidFormat']"
         >your password must be at least 6 long.</p>
       </span>
 
-      <button class="btn btn-primary" type="submit"
+      <button class="btn btn-primary btn-block" type="submit"
         [disabled]="!signupForm.valid"
       >Signup</button>
 
-      <p class="error-message" *ngIf="singupError"
+      <p class="alert alert-danger" *ngIf="singupError"
       >failed to singup.</p>
-      <p class="error-message" *ngIf="loginError"
+      <p class="alert alert-danger" *ngIf="loginError"
       >failed to login.</p>
 
     </form>

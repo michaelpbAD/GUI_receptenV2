@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
         }
       });
   }
+  onSignup() {
+    this.route.navigateByUrl('/signup');
+  }
   validEmail(control: FormControl): {[s: string]: boolean} {
     if (!this.emailRule.test(control.value)) {
       return{'invalidFormat' : true};

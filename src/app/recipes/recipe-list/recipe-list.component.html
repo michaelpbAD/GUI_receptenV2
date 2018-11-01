@@ -1,3 +1,8 @@
-<ul>
-  <li *ngFor="let r of data"> {{r.name}}</li>
-</ul>
+
+<div *ngFor="let recipe of data; index as i"
+  class="card" >
+    <div class="card-body" [routerLink]="['/recipe',i]">
+      <h5 class="card-title">{{recipe.name}}</h5>
+      <p class="card-text">{{recipe.comment}}</p>
+    </div>
+</div>

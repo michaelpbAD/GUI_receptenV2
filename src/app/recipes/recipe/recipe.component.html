@@ -1,3 +1,36 @@
-<p>
-  recipe works!
-</p>
+<div class="row justify-content-md-center ">
+  <div class="col col-md-4">
+    <div class="header-container">
+      <h2>{{recipe.name}}</h2>
+      <p>{{recipe.comment}}</p>
+    </div>
+    <div class="actions-container">
+      <div class="action-container" *ngFor="let action of recipe.actions" >
+        <div class="ingredients-container">
+          <div class="row ingredient-container" *ngFor="let ingredient of action.ingredients">
+            <div class="col-2 text-right ingredient-val">
+              {{ingredient.quantity}}
+            </div>
+            <div class="col-1 text-left ingredient-val">
+              {{ingredient.unit}}
+            </div>
+            <div class="col ingredient-val">
+              {{ingredient.name}}
+            </div>
+          </div>
+        </div>
+
+        <h5 >{{action.name}}</h5>
+        <p>{{action.comment}}</p>
+      </div>
+    </div>
+    <ng-template [ngIf]="auth.isLoggedIn()">
+      <button type="button" class="btn btn-primary btn-block" (click)="onEdit()">EDIT</button>
+      <button type="button" class="btn btn-danger btn-block" (click)="onDel()">DEL</button>
+    </ng-template>
+    <div class="alert alert-warning" role="alert" *ngIf="delError">
+      adjustment has not been saved on server.
+    </div>
+  </div>
+</div>
+

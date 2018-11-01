@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {BackendService} from '../../backend.service';
 import {Recipe} from '../../recipeClasses/recipe';
 import {Ingredient} from '../../recipeClasses/ingredient';
 import {Action} from '../../recipeClasses/action';
 import {forEach} from '@angular/router/src/utils/collection';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-recipe-editor',
@@ -16,12 +17,15 @@ export class RecipeEditorComponent implements OnInit {
 
   editForm: FormGroup;
   _ID: number;
+  saveError = false;
 
-  Rule = /\./;
+  Rule = /\.*/;
 
   constructor(
     private route: ActivatedRoute,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -92,7 +96,10 @@ export class RecipeEditorComponent implements OnInit {
   setEditData() {
     console.log('_ID', this._ID);
     if (this._ID >= 0 && this._ID < this.backendService.data.length) {
-      this.backendService.editData = this.backendService.data[this._ID].deepCopy();
+      this.backendService.editData = new Recipe(
+        this.backendService.data[this._ID].name,
+        this.backendService.data[this._ID].comment,
+        this.backendService.data[this._ID].actions).deepCopy();
     } else {
       const I = new Ingredient('Ingredient base', 'g', 1);
       const A = new Action('Action base', 'Action comment', [I]);
@@ -105,15 +112,30 @@ export class RecipeEditorComponent implements OnInit {
     console.log(form);
     this.backendService.editData = form.value;
     if (this._ID >= 0 && this._ID < this.backendService.data.length) {
-      this.backendService.data[this._ID] = this.backendService.editData.deepCopy();
+      this.backendService.data[this._ID] = new Recipe(
+        this.backendService.editData.name,
+        this.backendService.editData.comment,
+        this.backendService.editData.actions).deepCopy();
       console.log('SAVED as ', this._ID);
     } else {
-      this.backendService.data.push(this.backendService.editData);
+      this._ID = this.backendService.data.push(this.backendService.editData);
+      this._ID--;
       console.log('SAVED push');
     }
     this.backendService.storeRecipes(this.backendService.data).subscribe(
-      (respons) => console.log(respons),
-      (error) => console.log(error)
+      (respons) => {
+        console.log(respons);
+        this.saveError = false;
+        this.router.navigate(['recipe', this._ID]);
+      },
+      (error) => {
+        console.log(error);
+        this.saveError = true;
+        if (error.error['error'] === 'Auth token is expired') {
+          this.authService.logout();
+          this.router.navigate(['login' ]);
+        }
+      }
     );
   }
 }

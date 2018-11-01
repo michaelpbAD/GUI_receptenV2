@@ -50,9 +50,9 @@
 
 
         </div>
-        <button class="btn btn-secondary btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">Remove Action</button>
+        <button type="button" class="btn btn-secondary btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">Remove Action</button>
       </div>
-      <button (click)="addAction()" class="btn btn-secondary btn-block">Add actions </button>
+      <button type="button" (click)="addAction()" class="btn btn-secondary btn-block">Add actions </button>
     </div>
 
 
@@ -60,6 +60,10 @@
       class="btn btn-primary btn-block"
       type="submit"
     >SAVE</button>
+    <p class="error-message"
+       *ngIf="saveError">
+      adjustment has not been saved on server.
+    </p>
 
   </form>
 </div>

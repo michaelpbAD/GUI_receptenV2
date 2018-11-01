@@ -6,6 +6,7 @@ import {map, catchError} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {BackendLinkData} from './backend-link-data';
 import {Subject} from 'rxjs/Subject';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class BackendService {
@@ -13,7 +14,11 @@ export class BackendService {
   editData: Recipe;
   dataSubject = new Subject();
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   getRecipes() {
     const url = BackendLinkData.url;
@@ -27,6 +32,10 @@ export class BackendService {
       .pipe((catchError(
         (error: HttpErrorResponse) => {
           console.log('ERROR: ', error);
+          if (error.error['error'] === 'Auth token is expired') {
+            this.authService.logout();
+            this.router.navigate(['login' ]);
+          }
           return Observable.throw('ERROR: getContact');
         }
       )));
