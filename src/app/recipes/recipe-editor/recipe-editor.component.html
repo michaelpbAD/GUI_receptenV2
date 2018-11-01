@@ -1,4 +1,4 @@
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center" *ngIf="show">
   <form [formGroup]="editForm" (ngSubmit)="onSave(editForm)">
     <div class="recipe-inputs">
       <div class="input-group">
@@ -11,28 +11,53 @@
         <textarea class="form-control" placeholder="Recipe comment" formControlName="comment"></textarea>
       </div>
     </div>
+    <div>
+      <span *ngIf="!editForm.get('name').valid && editForm.get('name').touched">
+        <p class="alert alert-danger"
+        *ngIf="editForm.get('name').errors['required']"
+        >name is required.</p>
+      </span>
+      <span *ngIf="!editForm.get('comment').valid && editForm.get('comment').touched">
+        <p class="alert alert-danger"
+        *ngIf="editForm.get('comment').errors['required']"
+        >comment is required.</p>
+      </span>
+    </div>
 
     <div formArrayName="actions" class="actions-container">
       <div class="action-container" *ngFor="let action of getAction(editForm); let i = index">
-        <div class="ui raised actions" [formGroupName]="i">
-
+        <div [formGroupName]="i">
           <div class="ingredients-container" formArrayName="ingredients">
-            <!--<h4>Step {{i+1}}</h4>-->
             <div *ngFor="let ingredient of getIngredients(action); let j = index"
-                 [formGroupName]="j"
-                 class="input-group ingredient-inputs">
-              <input class="form-control col-3" type="number" placeholder="quantity" formControlName="quantity">
-              <select class=" form-control col-2" formControlName="unit" >
-                <option></option>
-                <option>g</option>
-                <option>ml</option>
-                <option>tsp</option>
-                <option>tbsp</option>
-              </select>
-              <input class="form-control" type="text" placeholder="name" formControlName="name">
-              <div class="input-group-append">
-                <button type="button" class="btn btn-secondary"  (click)="delIngredients(i,j)">del</button>
+                 [formGroupName]="j">
+
+              <div class="input-group ingredient-inputs">
+                <input class="form-control col-3" type="number" placeholder="quantity" formControlName="quantity">
+                <select class=" form-control col-2" formControlName="unit" >
+                  <option></option>
+                  <option>g</option>
+                  <option>ml</option>
+                  <option>tsp</option>
+                  <option>tbsp</option>
+                </select>
+                <input class="form-control" type="text" placeholder="name" formControlName="name">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-warning"  (click)="delIngredients(i,j)">DEL</button>
+                </div>
               </div>
+              <div>
+                <span *ngIf="!ingredient.get('quantity').valid && ingredient.get('quantity').touched">
+                  <p class="alert alert-danger"
+                     *ngIf="ingredient.get('quantity').errors['required']"
+                  >quantity is required.</p>
+                </span>
+                <span *ngIf="!ingredient.get('name').valid && ingredient.get('name').touched">
+                  <p class="alert alert-danger"
+                     *ngIf="ingredient.get('name').errors['required']"
+                  >quantity is required.</p>
+                </span>
+              </div>
+
             </div>
             <button type="button" class="btn btn-secondary btn-block" (click)="addIngredients(i)">Add ingredient</button>
           </div>
@@ -47,10 +72,15 @@
               <textarea class="form-control" placeholder="action comment" formControlName="comment"></textarea>
             </div>
           </div>
-
-
         </div>
-        <button type="button" class="btn btn-secondary btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">Remove Action</button>
+        <button type="button" class="btn btn-warning btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">DEL Action</button>
+        <div>
+          <span *ngIf="!action.get('name').valid && action.get('name').touched">
+            <p class="alert alert-danger"
+               *ngIf="action.get('name').errors['required']"
+            >name is required.</p>
+          </span>
+        </div>
       </div>
       <button type="button" (click)="addAction()" class="btn btn-secondary btn-block">Add actions </button>
     </div>
@@ -59,10 +89,11 @@
     <button
       class="btn btn-primary btn-block"
       type="submit"
+      [disabled]="!editForm.valid"
     >SAVE</button>
     <p class="error-message"
        *ngIf="saveError">
-      adjustment has not been saved on server.
+      due to an error, the adjustments have not been saved on the server.
     </p>
 
   </form>

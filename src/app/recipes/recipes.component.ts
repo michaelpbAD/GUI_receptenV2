@@ -8,17 +8,19 @@ import {BackendService} from '../backend.service';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-
+  show = false;
+  error = false;
   constructor(private backendService: BackendService) { }
 
   ngOnInit() {
     this.backendService.getRecipes().subscribe(
       (response: Recipe[]) => {
         console.log(response);
+        this.show = true;
       },
       (error) => {
         console.log(error);
-        this.backendService.data = [];
+        this.show = true;
       },
       () => console.log('data collects')
     );

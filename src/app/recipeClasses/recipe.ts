@@ -13,10 +13,10 @@ export class Recipe {
   }
   deepCopy() {
     let R: Recipe;
-    let A: Action[] = [];
+    const A: Action[] = [];
 
     this.actions.forEach((a, aIndex) => {
-      let I: Ingredient[] = [];
+      const I: Ingredient[] = [];
       this.actions[aIndex].ingredients.forEach((i, iIndex) => {
         I.push(i);
       });

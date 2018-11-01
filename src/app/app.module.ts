@@ -10,6 +10,7 @@ import {AppRoutesModule} from './app-routes.module';
 import {AuthModule} from './auth/auth.module';
 import {AuthGuard} from './auth.guard';
 import {RecipesModule} from './recipes/recipes.module';
+import {CanDeactivateGuard} from './can-deactivate.guard';
 
 
 
@@ -29,7 +30,8 @@ import {RecipesModule} from './recipes/recipes.module';
     AuthService,
     BackendService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    AuthGuard
+    AuthGuard,
+    CanDeactivateGuard
     ],
   bootstrap: [AppComponent]
 })

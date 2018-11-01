@@ -11,8 +11,11 @@ import {Router} from '@angular/router';
 @Injectable()
 export class BackendService {
   data: Recipe[] = [];
-  editData: Recipe;
   dataSubject = new Subject();
+  editData: Recipe;
+  editId: number;
+  saved = true;
+
 
   constructor(
     private http: HttpClient,
@@ -50,6 +53,8 @@ export class BackendService {
     this.data = recipes;
     this.dataSubject.next(recipes);
   }
+
+
 
 
 

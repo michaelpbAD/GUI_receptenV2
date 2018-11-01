@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="show"></router-outlet>
+<div *ngIf="error" class="alert alert-danger">an error occurred when retrieving the recipes.</div>
