@@ -8,7 +8,7 @@ import {AuthGuard} from '../auth.guard';
 import {CanDeactivateGuard} from '../can-deactivate.guard';
 
 const RecipesRoutes = [
-  {path: 'recipe', component: RecipesComponent, canActivate: [AuthGuard], children: [
+  {path: '', component: RecipesComponent, canActivate: [AuthGuard], children: [
       {path: 'list', component: RecipeListComponent},
       {path: ':id', component: RecipeComponent},
       {path: ':id/edit', component: RecipeEditorComponent, canDeactivate: [CanDeactivateGuard]},

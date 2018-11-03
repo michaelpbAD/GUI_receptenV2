@@ -7,9 +7,9 @@
     <div class="actions-container">
       <div class="action-container" *ngFor="let action of recipe.actions" >
         <div class="ingredients-container">
-          <div class="row ingredient-container" *ngFor="let ingredient of action.ingredients">
+          <div class="row ingredient-container" *ngFor="let ingredient of action.ingredients | unit:'eu'">
             <div class="col-2 text-right ingredient-val">
-              {{ingredient.quantity}}
+              {{ingredient.quantity| number : '1.2'}}
             </div>
             <div class="col-2 text-left ingredient-val">
               {{ingredient.unit}}
@@ -19,9 +19,11 @@
             </div>
           </div>
         </div>
+        <div appActionComment [name]="action.name" [comment]="action.comment">
+          <h5>{{action.name}}</h5>
+          <!--<p>{{action.comment}}</p>-->
+        </div>
 
-        <h5 >{{action.name}}</h5>
-        <p>{{action.comment}}</p>
       </div>
     </div>
     <ng-template [ngIf]="auth.isLoggedIn()">

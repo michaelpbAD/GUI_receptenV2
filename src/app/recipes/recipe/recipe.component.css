@@ -22,20 +22,27 @@
   background-color: gray;
   border-radius: 5px;
   padding: 5px;
-  margin: 0px 0px 10px 0px;
+  margin: 0px 0px 5px 0px;
 }
 .action-container h5{
-  text-decoration: underline;
-  padding-left: 5px;
-  margin: 0px 0px 3px 0px;
-  color: whitesmoke;
-}
+   text-decoration: underline;
+   padding-left: 5px;
+   margin: 0px 0px 3px 0px;
+   color: whitesmoke;
+ }
 .action-container p{
   background-color: whitesmoke;
   border-radius: 5px;
   padding: 5px;
   margin: 0px 0px 1px 0px;
 }
+
+/*[appActionComment]{*/
+  /*border-radius: 5px;*/
+  /*padding: 0px 5px 1px 5px;*/
+
+  /*margin: 0px 0px 1px 0px;*/
+/*}*/
 .ingredients-container{
   background-color: whitesmoke;
   border-radius: 5px;

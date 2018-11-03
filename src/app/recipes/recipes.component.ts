@@ -15,14 +15,15 @@ export class RecipesComponent implements OnInit {
   ngOnInit() {
     this.backendService.getRecipes().subscribe(
       (response: Recipe[]) => {
-        console.log(response);
+        // console.log(response);
         this.show = true;
       },
       (error) => {
         console.log(error);
-        this.show = true;
+        this.show = false;
+        this.error = true;
       },
-      () => console.log('data collects')
+      () => console.log('get recipes done')
     );
   }
 

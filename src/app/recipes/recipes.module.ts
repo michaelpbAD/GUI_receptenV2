@@ -11,6 +11,8 @@ import {RecipeListComponent} from './recipe-list/recipe-list.component';
 import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RecipesComponent } from './recipes.component';
+import { ActionCommentDirective } from './recipe/action-comment.directive';
+import { UnitPipe } from './recipe/unit.pipe';
 
 @NgModule({
   imports: [
@@ -30,7 +32,11 @@ import { RecipesComponent } from './recipes.component';
 
     RecipeListComponent,
     RecipeCardComponent,
-    RecipesComponent
+    RecipesComponent,
+
+    ActionCommentDirective,
+
+    UnitPipe
   ],
   providers: [
   ],

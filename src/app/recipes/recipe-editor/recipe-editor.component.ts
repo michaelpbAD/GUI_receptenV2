@@ -148,7 +148,6 @@ export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
     });
   }
   setEditData() {
-    console.log('_ID', this._ID);
     this.editForm = this.initForm();
 
     if (this._ID >= 0 && this._ID < this.backendService.data.length) {
