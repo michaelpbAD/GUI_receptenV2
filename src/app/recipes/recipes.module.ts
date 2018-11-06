@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RecipesComponent } from './recipes.component';
 import { ActionCommentDirective } from './recipe/action-comment.directive';
 import { UnitPipe } from './recipe/unit.pipe';
+import { HighlightDirective } from './recipe/highlight.directive';
 
 @NgModule({
   imports: [
@@ -36,7 +37,9 @@ import { UnitPipe } from './recipe/unit.pipe';
 
     ActionCommentDirective,
 
-    UnitPipe
+    UnitPipe,
+
+    HighlightDirective
   ],
   providers: [
   ],

@@ -15,9 +15,6 @@
         <p class="alert alert-danger"
            *ngIf="loginForm.get('email').errors['required']"
         >email address is required.</p>
-        <p class="alert alert-danger"
-           *ngIf="loginForm.get('email').errors['invalidFormat'] && !loginForm.get('email').errors['required']"
-        >Enter a correct email address.</p>
       </span>
 
       <div class="form-group">
@@ -39,7 +36,7 @@
         [disabled]="!loginForm.valid"
       >Login</button>
       <div class="alert alert-warning" role="alert" *ngIf="invalidLogin">
-        invalid email or password.
+        Invalid email and/or password.
       </div>
       <button
         class="btn btn-secondary btn-block"
@@ -47,7 +44,6 @@
         (click)="onSignup()"
       >Signup</button>
     </form>
-
   </div>
 </div>
 

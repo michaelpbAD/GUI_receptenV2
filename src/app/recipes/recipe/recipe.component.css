@@ -51,6 +51,7 @@
 }
 .ingredient-container{
   border-bottom: 1px solid gray;
+  border-radius: 5px;
   margin: 0px 0px 0px 0px;
 }
 .ingredient-val {

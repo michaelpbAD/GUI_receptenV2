@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: Router,
+    // private route: Router,
     private router: Router,
     private backendService: BackendService
   ) { }
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.invalidLogin = false;
 
     this.loginForm = new FormGroup({
-      'email': new FormControl(null, [Validators.required , Validators.email, this.validEmail.bind(this)]),
+      'email': new FormControl(null, [Validators.required ]),
       'password': new FormControl(null, Validators.required)
     });
   }
@@ -40,14 +40,16 @@ export class LoginComponent implements OnInit {
           if (this.backendService.saved === false) {
             this.router.navigate(['recipe', this.backendService.editId, 'edit']);
           } else {
-            this.route.navigateByUrl('/recipe/list');
+            // this.route.navigateByUrl('/recipe/list');
+            this.router.navigate(['recipe', 'list']);
           }
 
         }
       });
   }
   onSignup() {
-    this.route.navigateByUrl('/signup');
+    // this.route.navigateByUrl('/signup');
+    this.router.navigate(['signup', 'list']);
   }
   validEmail(control: FormControl): {[s: string]: boolean} {
     if (!this.emailRule.test(control.value)) {

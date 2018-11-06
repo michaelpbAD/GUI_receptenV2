@@ -43,20 +43,23 @@ export class RecipeComponent implements OnInit {
     this.router.navigate(['recipe', this._ID, 'edit']);
   }
   onDel() {
-    if (!this.delError) {
-      this.backendService.data.splice(this._ID, 1);
-    }
-    this.backendService.storeRecipes(this.backendService.data).subscribe(
-      (respons) => {
+    if (confirm('confirm delite')) {
+      if (!this.delError) {
+        this.backendService.data.splice(this._ID, 1);
+      }
+      this.backendService.storeRecipes(this.backendService.data).subscribe(
+        (respons) => {
           console.log(respons);
           this.delError = false;
           this.router.navigate(['recipe', 'list']);
         },
-          (error) => {
-            console.log(error);
-            this.delError = true;
-          }
-    );
+        (error) => {
+          console.log(error);
+          this.delError = true;
+        }
+      );
+    }
+
   }
   get auth() {
     return this.authService;
