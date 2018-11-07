@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -64,6 +66,23 @@ export class AuthService {
 
   isLoggedIn() {
     return this.token != null;
+  }
+
+  emailCollision(control: FormControl): Promise<any> | Observable<any>{
+    // const answer = new Promise<any>(((resolve, reject) => {
+    // }))
+    return firebase.auth().fetchProvidersForEmail(control.value)
+      .then( () => {
+        return{'emailCollision' : true};
+      })
+      .catch(
+        error => {
+          if (error === 'auth/invalid-email' ) {
+            return null;
+          }
+          return{'emailCollision' : true};
+        }
+      );
   }
 
 }
