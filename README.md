@@ -28,16 +28,17 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## BackendLinkData
 make following class with links to firebase.
-
-  export class BackendLinkData {
-    public static readonly url = 'https://<firebase>.json';
-    public static readonly config = {
-      apiKey: '',
-      authDomain: '',
-      databaseURL: '',
-      projectId: '',
-      storageBucket: '',
-      messagingSenderId: ''
-    };
-  }
+  
+  
+    export class BackendLinkData {
+      public static readonly url = 'https://<firebase>.json';
+      public static readonly config = {
+        apiKey: '',
+        authDomain: '',
+        databaseURL: '',
+        projectId: '',
+        storageBucket: '',
+        messagingSenderId: ''
+      };
+    }
   
