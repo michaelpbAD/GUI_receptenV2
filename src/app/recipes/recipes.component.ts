@@ -8,7 +8,7 @@ import {BackendService} from '../backend.service';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  show = false;
+  show = false; // indien dit op true en ik recipe/0 herlaat zal ik errors krijgen tot dat dataSubject.next is gedaan
   error = false;
   constructor(private backendService: BackendService) { }
 
