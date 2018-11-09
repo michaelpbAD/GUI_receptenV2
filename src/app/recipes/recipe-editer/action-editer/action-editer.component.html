@@ -7,13 +7,19 @@
 
           <div class="input-group ingredient-inputs">
             <input class="form-control col-3" type="number" placeholder="quantity" formControlName="quantity">
-            <select class=" form-control col-2" formControlName="unit" >
-              <option></option>
-              <option>g</option>
-              <option>ml</option>
-              <option>tsp</option>
-              <option>tbsp</option>
-            </select>
+            <input list="list" class=" form-control col-2" formControlName="unit">
+            <datalist id="list">
+              <option value="">
+              <option value="g">
+              <option value="ml">
+              <option value="tsp">
+              <option value="tbsp">
+              <option value="cup">
+              <option value="grain">
+              <option value="ounce">
+              <option value="oz">
+              <option value="pound">
+            </datalist>
             <input class="form-control" type="text" placeholder="name" formControlName="name">
             <div class="input-group-append">
               <button type="button" class="btn btn-warning"  (click)="delIngredients(i)">DEL</button>
