@@ -21,10 +21,11 @@ import {CanDeactivateGuard} from './can-deactivate.guard';
   ],
   imports: [
     BrowserModule,
-    AppRoutesModule,
     AuthModule,
-    RecipesModule,
-    HttpClientModule
+    HttpClientModule,
+
+
+    AppRoutesModule
   ],
   providers: [
     AuthService,

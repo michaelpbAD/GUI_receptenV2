@@ -35,7 +35,7 @@
         type="submit"
         [disabled]="!loginForm.valid"
       >Login</button>
-      <div class="alert alert-warning" role="alert" *ngIf="invalidLogin">
+      <div class="alert alert-danger" role="alert" *ngIf="invalidLogin">
         Invalid email and/or password.
       </div>
       <button

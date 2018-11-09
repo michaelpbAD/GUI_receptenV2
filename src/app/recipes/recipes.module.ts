@@ -4,8 +4,6 @@ import {RecipesRoutingModule} from './recipes-routing.module';
 import {IngredientComponent} from './recipe/action/ingredient/ingredient.component';
 import {RecipeComponent} from './recipe/recipe.component';
 import {ActionComponent} from './recipe/action/action.component';
-import {IngredientEditerComponent} from './recipe-editor/action-editer/ingredient-editer/ingredient-editer.component';
-import {ActionEditerComponent} from './recipe-editor/action-editer/action-editer.component';
 import {RecipeCardComponent} from './recipe-list/recipe-card/recipe-card.component';
 import {RecipeListComponent} from './recipe-list/recipe-list.component';
 import {RecipeEditorComponent} from './recipe-editor/recipe-editor.component';
@@ -14,6 +12,8 @@ import { RecipesComponent } from './recipes.component';
 import { ActionCommentDirective } from './recipe/action-comment.directive';
 import { UnitPipe } from './recipe/unit.pipe';
 import { HighlightDirective } from './recipe/highlight.directive';
+import { RecipeEditerComponent } from './recipe-editer/recipe-editer.component';
+import {ActionEditerComponent} from './recipe-editer/action-editer/action-editer.component';
 
 @NgModule({
   imports: [
@@ -27,19 +27,18 @@ import { HighlightDirective } from './recipe/highlight.directive';
     ActionComponent,
     IngredientComponent,
 
+    ActionCommentDirective,
+    UnitPipe,
+    HighlightDirective,
+
     RecipeEditorComponent,
-    ActionEditerComponent,
-    IngredientEditerComponent,
 
     RecipeListComponent,
     RecipeCardComponent,
     RecipesComponent,
 
-    ActionCommentDirective,
-
-    UnitPipe,
-
-    HighlightDirective
+    RecipeEditerComponent,
+    ActionEditerComponent
   ],
   providers: [
   ],

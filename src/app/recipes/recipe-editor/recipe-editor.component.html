@@ -25,7 +25,7 @@
     </div>
 
     <div formArrayName="actions" class="actions-container">
-      <div class="action-container" *ngFor="let action of getAction(editForm); let i = index">
+      <div class="action-container" *ngFor="let action of getActions(editForm); let i = index">
         <div [formGroupName]="i">
           <div class="ingredients-container" formArrayName="ingredients">
             <div *ngFor="let ingredient of getIngredients(action); let j = index"
@@ -73,7 +73,7 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-warning btn-block" *ngIf="getAction(editForm).length > 1" (click)="delAction(i)">DEL Action</button>
+        <button type="button" class="btn btn-warning btn-block" *ngIf="getActions(editForm).length > 1" (click)="delAction(i)">DEL Action</button>
         <div>
           <span *ngIf="!action.get('name').valid && action.get('name').touched">
             <p class="alert alert-danger"

@@ -3,6 +3,12 @@
 #backend link data
 /src/app/backend-link-data.ts
 
+#firebase
+/.firebase
+/.firebaserc
+/database.rules.json
+/firebase.json
+
 # compiled output
 /dist
 /dist-server

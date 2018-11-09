@@ -1,0 +1,51 @@
+<div class="row justify-content-md-center" *ngIf="show">
+  <form [formGroup]="editForm" (ngSubmit)="onSave(editForm)">
+    <div class="recipe-inputs">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Recipe name</span>
+        </div>
+        <input class="form-control" type="text" placeholder="Recipe name" formControlName="name">
+      </div>
+      <div class="input-group">
+        <textarea class="form-control" placeholder="Recipe comment" formControlName="comment"></textarea>
+      </div>
+    </div>
+    <div>
+      <span *ngIf="!editForm.get('name').valid && editForm.get('name').touched">
+        <p class="alert alert-danger"
+           *ngIf="editForm.get('name').errors['required']"
+        >name is required.</p>
+      </span>
+      <span *ngIf="!editForm.get('comment').valid && editForm.get('comment').touched">
+        <p class="alert alert-danger"
+           *ngIf="editForm.get('comment').errors['required']"
+        >comment is required.</p>
+      </span>
+    </div>
+
+    <div formArrayName="actions" class="actions-container">
+      <div *ngFor="let action of getActions(editForm); let i = index">
+        <app-action-editer [index] = i ></app-action-editer>
+      </div>
+
+
+      <button type="button" (click)="addAction()" class="btn btn-secondary btn-block">Add actions </button>
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      type="submit"
+      [disabled]="!editForm.valid"
+    >SAVE</button>
+    <p class="error-message"
+       *ngIf="saveError">
+      due to an error, the adjustments have not been saved on the server.
+    </p>
+
+  </form>
+</div>
+
+
+

@@ -7,11 +7,13 @@ import {Observable} from 'rxjs/Observable';
 import {BackendLinkData} from './backend-link-data';
 import {Subject} from 'rxjs/Subject';
 import {Router} from '@angular/router';
+import {FormGroup} from '@angular/forms';
 
 @Injectable()
 export class BackendService {
   data: Recipe[] = [];
   dataSubject = new Subject();
+  editFormSubject = new Subject<FormGroup>();
   editData: Recipe;
   editId: number;
   saved = true;
@@ -52,6 +54,10 @@ export class BackendService {
   setData(recipes: Recipe[]) {
     this.data = recipes;
     this.dataSubject.next(recipes);
+  }
+
+  setEditForm(form) {
+    this.editFormSubject.next(form);
   }
 
 

@@ -1,0 +1,59 @@
+<div [formGroup]="editForm" class="action-container" *ngIf="show">
+  <div formArrayName="actions">
+    <div [formGroupName]="index">
+      <div class="ingredients-container" formArrayName="ingredients">
+        <div *ngFor="let ingredient of Ingredients; let i = index"
+             [formGroupName]="i">
+
+          <div class="input-group ingredient-inputs">
+            <input class="form-control col-3" type="number" placeholder="quantity" formControlName="quantity">
+            <select class=" form-control col-2" formControlName="unit" >
+              <option></option>
+              <option>g</option>
+              <option>ml</option>
+              <option>tsp</option>
+              <option>tbsp</option>
+            </select>
+            <input class="form-control" type="text" placeholder="name" formControlName="name">
+            <div class="input-group-append">
+              <button type="button" class="btn btn-warning"  (click)="delIngredients(i)">DEL</button>
+            </div>
+          </div>
+          <div>
+                  <span *ngIf="!ingredient.get('quantity').valid && ingredient.get('quantity').touched">
+                    <p class="alert alert-danger"
+                       *ngIf="ingredient.get('quantity').errors['required']"
+                    >quantity is required.</p>
+                  </span>
+            <span *ngIf="!ingredient.get('name').valid && ingredient.get('name').touched">
+                    <p class="alert alert-danger"
+                       *ngIf="ingredient.get('name').errors['required']"
+                    >quantity is required.</p>
+                  </span>
+          </div>
+
+        </div>
+        <button type="button" class="btn btn-secondary btn-block" (click)="addIngredients()">Add ingredient</button>
+      </div>
+      <div class="action-inputs">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Action name</span>
+          </div>
+          <input class="form-control" type="text" placeholder="action name" formControlName="name">
+        </div>
+        <div class="input-group">
+          <textarea class="form-control" placeholder="action comment" formControlName="comment"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-warning btn-block" *ngIf="Actions.length > 1" (click)="delAction()">DEL Action</button>
+    <div>
+            <span *ngIf="!action.get('name').valid && action.get('name').touched">
+              <p class="alert alert-danger"
+                 *ngIf="action.get('name').errors['required']"
+              >name is required.</p>
+            </span>
+    </div>
+  </div>
+</div>

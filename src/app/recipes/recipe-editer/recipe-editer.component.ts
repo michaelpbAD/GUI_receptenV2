@@ -1,36 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Params, Router} from '@angular/router';
 import {BackendService} from '../../backend.service';
+import {Observable} from 'rxjs/Observable';
+import {AuthService} from '../../auth/auth.service';
+import {Action} from '../../recipeClasses/action';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Recipe} from '../../recipeClasses/recipe';
 import {Ingredient} from '../../recipeClasses/ingredient';
-import {Action} from '../../recipeClasses/action';
-import {forEach} from '@angular/router/src/utils/collection';
-import {AuthService} from '../../auth/auth.service';
 import {CanComponentDeactivate} from '../../can-deactivate.guard';
-import {Observable} from 'rxjs/Observable';
-import {promise} from 'selenium-webdriver';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-recipe-editor',
-  templateUrl: './recipe-editor.component.html',
-  styleUrls: ['./recipe-editor.component.css']
+  selector: 'app-recipe-editer',
+  templateUrl: './recipe-editer.component.html',
+  styleUrls: ['./recipe-editer.component.css']
 })
-export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
+export class RecipeEditerComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+
 
   editForm: FormGroup;
   _ID: number;
   saveError = false;
   saved = true;
   show = false;
-  validInfo = false;
-
-  // Rule
-  nameRule = /.+/;
-  commentRule = /.+/;
-  ActionCommentRule = /.*/;
-  unitRule = /.*/;
-  quantityRule = /[0-9]+/;
+  idSubs: Subscription;
+  formSubs: Subscription;
+  changeSubs: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,12 +35,32 @@ export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(
+    this.idSubs = this.route.paramMap.subscribe(
       (params: Params) => {
         this._ID = params.get('id');
         this.setEditData();
+
+        this.setForm(this.backendService.editData);
+
+        if (!this.show) {
+          this.onFormChanges(this.editForm);
+        }
+        this.show = true;
+        setTimeout(() => {
+          this.backendService.setEditForm(this.editForm);
+        }, 10);
       }
     );
+    this.formSubs = this.backendService.editFormSubject.subscribe(
+      (form: FormGroup) => {
+        this.editForm = form;
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.idSubs.unsubscribe();
+    this.formSubs.unsubscribe();
+    this.changeSubs.unsubscribe();
   }
 
   // init
@@ -110,46 +125,21 @@ export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
     return form.controls.ingredients.controls;
   }
 
-  // valid
-  nameValid(control: FormControl): {[s: string]: boolean} {
-    if (!this.nameRule.test(control.value)) {
-      return{'invalidFormat' : true};
-    }
-    return null;
-  }
-  commentValid(control: FormControl): {[s: string]: boolean} {
-    if (!this.commentRule.test(control.value)) {
-      return{'invalidFormat' : true};
-    }
-    return null;
-  }
-  ActionCommentValid(control: FormControl): {[s: string]: boolean} {
-    if (!this.ActionCommentRule.test(control.value)) {
-      return{'invalidFormat' : true};
-    }
-    return null;
-  }
-  unitValid(control: FormControl): {[s: string]: boolean} {
-    if (!this.unitRule.test(control.value)) {
-      return{'invalidFormat' : true};
-    }
-    return null;
-  }
-  quantityValid(control: FormControl): {[s: string]: boolean} {
-    if (!this.quantityRule.test(control.value)) {
-      return{'invalidFormat' : true};
-    }
-    return null;
-  }
-
-  onFormChanges(): void {
-    this.editForm.valueChanges.subscribe(val => {
+  onFormChanges(form): void {
+    this.changeSubs = form.valueChanges.subscribe(val => {
+      this.backendService.setEditForm(form);
       this.saved = false;
     });
+
+    // this.editForm.controls['name']
+    //   .valueChanges
+    //   .debounceTime(1000)
+    //   .distinctUntilChanged()
+    //   .subscribe(val => {
+    //     this.backendService.setEditForm(this.editForm);
+    //   });
   }
   setEditData() {
-    this.editForm = this.initForm();
-
     if (this._ID >= 0 && this._ID < this.backendService.data.length) {
       this.backendService.editData = new Recipe(
         this.backendService.data[this._ID].name,
@@ -160,10 +150,14 @@ export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
       const A = new Action('Action base', 'Action comment', [I]);
       this.backendService.editData = new Recipe('Recipe base', 'Recipe comment', [A]);
     }
+  }
+  setForm(recipe: Recipe) {
+    // init form
+    this.editForm = this.initForm();
 
     // form op groote zeten
     this.delAction(0);
-    this.backendService.editData.actions.forEach((action, a) => {
+    recipe.actions.forEach((action, a) => {
       this.addAction();
       action.ingredients.forEach((ingredient, i) => {
         if (i !== 0) {
@@ -171,10 +165,9 @@ export class RecipeEditorComponent implements OnInit, CanComponentDeactivate {
         }
       });
     });
-    this.editForm.setValue(this.backendService.editData);
-    this.onFormChanges();
 
-    this.show = true;
+    // set values
+    this.editForm.setValue(recipe);
   }
 
   onSave(form) {

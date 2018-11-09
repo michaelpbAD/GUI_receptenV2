@@ -1,0 +1,35 @@
+input.ng-invalid.ng-touched { border: 1px solid red; }
+
+.recipe-inputs{
+  margin: 10px 0px 10px 0px;
+}
+.recipe-inputs .input-group{
+  margin: 0px 0px 5px 0px;
+}
+.actions-container{
+  border: 5px solid whitesmoke;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin: 10px 0px 10px 0px;
+  padding: 5px;
+}
+.action-container{
+  border: 5px solid gray;
+  background-color: gray;
+  border-radius: 5px;
+  margin: 0px 0px 10px 0px;
+}
+.ingredients-container{
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 5px;
+}
+.action-inputs{
+  margin: 10px 0px 5px 0px;
+}
+.action-inputs .input-group{
+  margin: 0px 0px 2px 0px;
+}
+.ingredient-inputs{
+  margin: 0px 0px 5px 0px;
+}
